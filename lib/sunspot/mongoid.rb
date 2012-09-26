@@ -32,11 +32,11 @@ module Sunspot
 
     class DataAccessor < Sunspot::Adapters::DataAccessor
       def load(id)
-        criteria(id).first
+        @clazz.find(id) rescue nil
       end
 
       def load_all(ids)
-        criteria(ids)
+        @clazz.where(:_id.in => ids.map { |id| id })
       end
 
       private
